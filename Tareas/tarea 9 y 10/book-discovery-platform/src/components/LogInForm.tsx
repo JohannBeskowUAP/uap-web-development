@@ -27,7 +27,7 @@ export default function LoginForm() {
       }
 
       setMessage("Logged in successfully!");
-      window.location.href = "/dashboard";
+      window.location.href = "/";
     } catch (err) {
       setMessage("Something went wrong");
     }

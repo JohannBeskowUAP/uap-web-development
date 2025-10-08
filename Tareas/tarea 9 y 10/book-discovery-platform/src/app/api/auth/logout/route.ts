@@ -3,5 +3,7 @@ import { deleteSession } from '@/lib/session'
 
 export async function POST() {
   await deleteSession()
-  return NextResponse.json({ message: 'Logged out' })
+
+  // Redirect user to homepage or login page after logout
+  return NextResponse.redirect(new URL('/login', process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'))
 }

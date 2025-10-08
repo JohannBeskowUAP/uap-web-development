@@ -13,7 +13,7 @@ export default async function ProfilePage() {
   return (
     <div>
       <h1>Welcome, user {payload.userId}</h1>
-      <form action="/api/logout" method="post">
+      <form action="/api/auth/logout" method="post">
         <button>Logout</button>
       </form>
     </div>

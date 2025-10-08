@@ -6,15 +6,19 @@ export async function middleware(req: NextRequest) {
   const session = req.cookies.get('session')?.value
   const payload = await decrypt(session)
 
-  // Protect all pages under /dashboard or /profile
-  if (!payload && req.nextUrl.pathname.startsWith('/dashboard')) {
+  // Redirect if not logged in
+  if (!payload) {
     return NextResponse.redirect(new URL('/login', req.url))
   }
 
   return NextResponse.next()
 }
 
-// Apply only to protected routes
 export const config = {
-  matcher: ['/dashboard/:path*', '/profile/:path*'],
+  matcher: [
+    '/',               // homepage
+    '/favorites',      // favorites page
+    '/profile/:path*', // profile and subroutes
+    '/modules/:path*', // protect modules pages too
+  ],
 }
