@@ -6,11 +6,10 @@ import { SessionPayload } from '@/lib/definitions'
 const secretKey = process.env.SESSION_SECRET
 const encodedKey = new TextEncoder().encode(secretKey)
 
+if (!secretKey) throw new Error('SESSION_SECRET is missing in .env')
+
 /* Encrypt session payload into a signed JWT */
 export async function encrypt(payload: SessionPayload) {
-  if (!secretKey) {
-  throw new Error('SESSION_SECRET is missing in .env')
-}
   return new SignJWT(payload)
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
@@ -27,6 +26,7 @@ export async function decrypt(session: string | undefined = '') {
     return payload as SessionPayload
   } catch {
     console.log('Failed to verify session')
+    return null
   }
 }
 

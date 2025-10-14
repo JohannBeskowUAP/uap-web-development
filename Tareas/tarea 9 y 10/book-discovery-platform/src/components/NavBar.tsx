@@ -15,20 +15,20 @@ export default function Navbar() {
 
   return (
     <nav className="bg-neutral-200 border-b border-neutral-800 shadow-md">
-      <div className="container mx-auto flex items-center justify-between px-4 py-3">
-        <Link href="/" className="text-xl font-bold text-blue-200">
-          BookApp
-        </Link>
-        <ul className="flex gap-6">
+      <div className="container mx-auto flex flex-col items-center justify-center px-4 py-3">
+        {/* Centered buttons with larger spacing */}
+        <ul className="flex justify-center items-center list-none p-0 m-0">
           {links.map(({ href, label }) => (
-            <li key={href}>
+            <li key={href} className="mx-8"> {/* Increased spacing here */}
               <Link href={href}>
                 <Button
                   variant={pathname === href ? "primary" : "nav"}
                   size="sm"
-                  className={
-                    pathname === href ? "bg-blue-600 text-white" : ""
-                  }
+                  className={`${
+                    pathname === href
+                      ? "bg-blue-600 text-white"
+                      : "text-neutral-800 hover:bg-neutral-300"
+                  }`}
                 >
                   {label}
                 </Button>
