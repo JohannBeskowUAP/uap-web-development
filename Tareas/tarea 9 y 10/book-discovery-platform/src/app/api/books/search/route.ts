@@ -3,18 +3,34 @@ import { NextResponse } from 'next/server'
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url)
   const query = searchParams.get('q')
+  const type = searchParams.get('type') || 'all' // can be 'author', 'title', 'isbn', or 'all'
 
   if (!query) {
     return NextResponse.json({ error: 'Missing query' }, { status: 400 })
   }
 
+  // Build search term for Google Books API
+  let searchQuery = ''
+  switch (type) {
+    case 'author':
+      searchQuery = `inauthor:${query}`
+      break
+    case 'title':
+      searchQuery = `intitle:${query}`
+      break
+    case 'isbn':
+      searchQuery = `isbn:${query}`
+      break
+    default:
+      searchQuery = query
+  }
+
   try {
     const res = await fetch(
-      `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(query)}`
+      `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(searchQuery)}`
     )
     const data = await res.json()
 
-    // Normalize data so your frontend gets what it expects
     const books = (data.items || []).map((item: any) => ({
       googleId: item.id,
       title: item.volumeInfo.title,

@@ -12,3 +12,11 @@ const ReviewSchema = new Schema({
 const Review = models.Review || model("Review", ReviewSchema);
 
 export default Review;
+
+export interface Review {
+  _id?: string;
+  userName: string;
+  rating: number;
+  comment: string;
+  createdAt?: string;
+}
