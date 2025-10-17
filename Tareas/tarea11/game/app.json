@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "MiApp",
-    "slug": "MiApp",
+    "name": "game",
+    "slug": "game",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "miapp",
+    "scheme": "game",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
